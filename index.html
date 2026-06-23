@@ -25,13 +25,12 @@
       </a>
 
       <nav class="nav-links">
-        <a href="#">Novedades</a>
-        <a href="#">Ficción</a>
-        <a href="#">No Ficción</a>
+        <a href="#">Fantasía</a>
+        <a href="#">Ciencia Ficción</a>
+        <a href="#">Terror</a>
         <a href="#">Infantil</a>
-        <a href="#">Ciencia</a>
+        <a href="#">Clásicos</a>
         <a href="#">Historia</a>
-        <a href="#" class="nav-oferta">Ofertas</a>
       </nav>
 
       <div class="nav-actions">
@@ -51,6 +50,12 @@
   </header>
 
   <main>
+
+    <!-- AUTH LINKS -->
+    <div style="display:flex;justify-content:flex-end;gap:.75rem;padding:.75rem 2rem;">
+      <a href="./pages/login.html" style="font-family:Inter,sans-serif;font-size:.875rem;font-weight:500;color:#1a1a1a;text-decoration:none;padding:.45rem 1.1rem;border:1.5px solid #d0c9be;border-radius:6px;transition:background .2s;" onmouseover="this.style.background='#f5f0ea'" onmouseout="this.style.background='transparent'">Iniciar sesión</a>
+      <a href="./pages/register.html" style="font-family:Inter,sans-serif;font-size:.875rem;font-weight:500;color:#fff;text-decoration:none;padding:.45rem 1.1rem;background:#1a1a1a;border:1.5px solid #1a1a1a;border-radius:6px;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Registrarse</a>
+    </div>
 
     <!-- HERO -->
     <section class="hero">
@@ -126,7 +131,6 @@
           <button class="filter-tab active" onclick="setFilter(this)">Todos</button>
           <button class="filter-tab" onclick="setFilter(this)">Más vendidos</button>
           <button class="filter-tab" onclick="setFilter(this)">Novedades</button>
-          <button class="filter-tab" onclick="setFilter(this)">Ofertas</button>
         </div>
       </div>
 
@@ -307,22 +311,22 @@
           <a href="#" class="cat-card">
             <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400&h=300&fit=crop&auto=format" alt="Ficción" />
             <div class="cat-overlay" style="background:linear-gradient(to top,#3b2e25ee 30%,#3b2e2555 70%,transparent)"></div>
-            <div class="cat-info"><p class="cat-name">Ficción</p><p class="cat-count">4.820 títulos</p></div>
+            <div class="cat-info"><p class="cat-name">Fantasía</p><p class="cat-count">4.820 títulos</p></div>
           </a>
           <a href="#" class="cat-card">
             <img src="https://images.unsplash.com/photo-1573592371950-348a8f1d9f38?w=400&h=300&fit=crop&auto=format" alt="No Ficción" />
             <div class="cat-overlay" style="background:linear-gradient(to top,#1c3a2eee 30%,#1c3a2e55 70%,transparent)"></div>
-            <div class="cat-info"><p class="cat-name">No Ficción</p><p class="cat-count">3.100 títulos</p></div>
+            <div class="cat-info"><p class="cat-name">Ciencia Ficción</p><p class="cat-count">3.100 títulos</p></div>
           </a>
           <a href="#" class="cat-card">
             <img src="https://images.unsplash.com/photo-1536965764833-5971e0abed7c?w=400&h=300&fit=crop&auto=format" alt="Ciencia" />
             <div class="cat-overlay" style="background:linear-gradient(to top,#1c2840ee 30%,#1c284055 70%,transparent)"></div>
-            <div class="cat-info"><p class="cat-name">Ciencia</p><p class="cat-count">1.540 títulos</p></div>
+            <div class="cat-info"><p class="cat-name">Terror</p><p class="cat-count">1.540 títulos</p></div>
           </a>
           <a href="#" class="cat-card">
             <img src="https://images.unsplash.com/photo-1533327325824-76bc4e62d560?w=400&h=300&fit=crop&auto=format" alt="Historia" />
             <div class="cat-overlay" style="background:linear-gradient(to top,#3a2010ee 30%,#3a201055 70%,transparent)"></div>
-            <div class="cat-info"><p class="cat-name">Historia</p><p class="cat-count">2.030 títulos</p></div>
+            <div class="cat-info"><p class="cat-name">Clásicos</p><p class="cat-count">2.030 títulos</p></div>
           </a>
           <a href="#" class="cat-card">
             <img src="https://images.unsplash.com/photo-1585779034823-7e9ac8faec70?w=400&h=300&fit=crop&auto=format" alt="Infantil" />
@@ -332,7 +336,7 @@
           <a href="#" class="cat-card">
             <img src="https://images.unsplash.com/photo-1632900182533-c8ee9ba229f4?w=400&h=300&fit=crop&auto=format" alt="Poesía" />
             <div class="cat-overlay" style="background:linear-gradient(to top,#3a1c38ee 30%,#3a1c3855 70%,transparent)"></div>
-            <div class="cat-info"><p class="cat-name">Poesía</p><p class="cat-count">560 títulos</p></div>
+            <div class="cat-info"><p class="cat-name">Historia</p><p class="cat-count">560 títulos</p></div>
           </a>
         </div>
       </div>
@@ -360,72 +364,11 @@
       </div>
     </div>
 
-    <!-- BANNER PROMO -->
-    <section class="promo-banner">
-      <div class="promo-inner">
-        <div>
-          <p class="promo-eyebrow">Oferta especial — solo hoy</p>
-          <h3 class="promo-title">3 libros por el precio de 2</h3>
-          <p class="promo-sub">Aplica en toda la sección de ficción contemporánea</p>
-        </div>
-        <a href="#" class="btn-white">
-          Aprovechar oferta
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
-      </div>
-    </section>
-
-    <!-- NEWSLETTER -->
-    <section class="newsletter">
-      <div class="nl-circle1"></div>
-      <div class="nl-circle2"></div>
-      <div class="nl-inner">
-        <p class="nl-eyebrow">Newsletter</p>
-        <h2 class="nl-title">Tu próxima historia<br><em>empieza aquí</em></h2>
-        <p class="nl-desc">Suscríbete y recibe recomendaciones personalizadas, alertas de ofertas y novedades editoriales directamente en tu correo.</p>
-        <form class="nl-form" onsubmit="submitNewsletter(event)">
-          <input class="nl-input" type="email" placeholder="tu@correo.com" required />
-          <button type="submit" class="btn-primary">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
-            Suscribirme
-          </button>
-        </form>
-        <p class="nl-note">Sin spam. Cancela cuando quieras.</p>
-      </div>
-    </section>
-
   </main>
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-inner">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-brand-logo">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-            Página <span>Uno</span>
-          </div>
-          <p class="footer-desc">Tu librería online de confianza. Libros para cada mente y cada momento.</p>
-          <div class="footer-socials">
-            <a href="#" class="social-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
-            <a href="#" class="social-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg></a>
-            <a href="#" class="social-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-          </div>
-        </div>
-        <div class="footer-col">
-          <p class="footer-col-title">Tienda</p>
-          <a href="#">Novedades</a><a href="#">Más vendidos</a><a href="#">Ofertas</a><a href="#">Próximos lanzamientos</a><a href="#">Ebooks</a>
-        </div>
-        <div class="footer-col">
-          <p class="footer-col-title">Soporte</p>
-          <a href="#">Centro de ayuda</a><a href="#">Mi cuenta</a><a href="#">Seguimiento de pedido</a><a href="#">Devoluciones</a><a href="#">Contacto</a>
-        </div>
-        <div class="footer-col">
-          <p class="footer-col-title">Empresa</p>
-          <a href="#">Quiénes somos</a><a href="#">Blog editorial</a><a href="#">Trabaja con nosotros</a><a href="#">Afiliados</a><a href="#">Privacidad</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
+      <div class="footer-inner">
         <p class="footer-copy">© 2026 Página Uno. Todos los derechos reservados.</p>
         <div class="payment-methods">
           <span class="payment-pill">Visa</span>
@@ -434,7 +377,6 @@
           <span class="payment-pill">Amex</span>
         </div>
       </div>
-    </div>
   </footer>
 
   <script>

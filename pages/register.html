@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro</title>
+  <link rel="stylesheet" href="../css/styles_register.css" />
+</head>
+<body>
+<div class="card">
+  <a class="back" href="../index.html">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M10 12L6 8l4-4"/>
+    </svg>
+    Volver al inicio
+  </a>
+
+  <div class="card-header">
+    <h1>Crear cuenta</h1>
+  </div>
+
+  <div class="field">
+    <label for="name">Nombre</label>
+    <input type="text" id="name" placeholder="Juan Pérez" />
+  </div>
+
+  <div class="field">
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="juan@ejemplo.com" />
+  </div>
+
+  <div class="field">
+    <label for="password">Contraseña</label>
+    <input type="password" id="password" placeholder="••••••••" />
+  </div>
+
+  <div class="field">
+    <label for="confirm-pass">Confirmar contraseña</label>
+    <input type="password" id="confirm-pass" placeholder="••••••••"
+      onkeydown="if(event.key==='Enter') doRegister()" />
+  </div>
+
+  <button class="btn" onclick="doRegister()" id="reg-btn">Crear cuenta</button>
+
+  <div class="divider">o</div>
+
+  <div class="link-row">
+    ¿Ya tenés cuenta? <a href="./login.html">Iniciá sesión</a>
+  </div>
+
+  <button class="config-toggle" onclick="document.getElementById('cfg').classList.toggle('open')">⚙ Configuración</button>
+  <div class="config-panel" id="cfg">
+    <div class="field">
+      <label for="base-url">URL base</label>
+      <input type="text" id="base-url" placeholder="http://localhost:3000" />
+    </div>
+    <div class="field">
+      <label for="reg-path">Path del endpoint</label>
+      <input type="text" id="reg-path" placeholder="/api/user" value="/api/user" />
+    </div>
+  </div>
+
+  <div class="response" id="resp">
+    <div class="response-label">Respuesta</div>
+    <span class="status-pill" id="pill"></span>
+    <div class="response-body" id="resp-body"></div>
+    <p class="hint" id="resp-hint"></p>
+  </div>
+</div>
+
+<script src="./scripts/app_register.js"></script>
+
+</body>
+</html>

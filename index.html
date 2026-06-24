@@ -7,11 +7,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
 
-  <!-- BARRA SUPERIOR -->
+  <!-- TOPBAR -->
   <div class="topbar">
     📦 Envío gratis en pedidos mayores a $29.99 &nbsp;|&nbsp; Hasta 40% de descuento en selección de verano
   </div>
@@ -25,28 +25,42 @@
       </a>
 
       <nav class="nav-links">
-        <a href="#">Novedades</a>
-        <a href="#">Ficción</a>
-        <a href="#">No Ficción</a>
-        <a href="#">Infantil</a>
-        <a href="#">Ciencia</a>
-        <a href="#">Historia</a>
-        <a href="#" class="nav-oferta">Ofertas</a>
+        <a href="#" data-cat="todos">Novedades</a>
+        <a href="#" data-cat="ficcion">Ficción</a>
+        <a href="#" data-cat="noficcion">No Ficción</a>
+        <a href="#" data-cat="infantil">Infantil</a>
+        <a href="#" data-cat="ciencia">Ciencia</a>
+        <a href="#" data-cat="historia">Historia</a>
+        <a href="#" class="nav-oferta" data-cat="oferta">Ofertas</a>
       </nav>
 
       <div class="nav-actions">
         <div class="search-bar">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <input type="text" placeholder="Buscar libros, autores…" />
+          <input id="search-input" type="text" placeholder="Buscar libros, autores…" />
         </div>
-        <button class="icon-btn" title="Favoritos">
+        <button class="icon-btn" id="wish-nav-btn" title="Favoritos">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
         </button>
-        <button class="icon-btn" title="Carrito">
+        <button class="icon-btn" id="cart-btn" title="Carrito">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-          <span class="cart-badge">2</span>
+          <span class="cart-badge" id="cart-badge" style="display:none;">0</span>
+        </button>
+        <button class="hamburger" id="hamburger-btn" title="Menú">
+          <span></span><span></span><span></span>
         </button>
       </div>
+    </div>
+
+    <!-- Menú móvil -->
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#">Novedades</a>
+      <a href="#">Ficción</a>
+      <a href="#">No Ficción</a>
+      <a href="#">Infantil</a>
+      <a href="#">Ciencia</a>
+      <a href="#">Historia</a>
+      <a href="#" class="nav-oferta">Ofertas</a>
     </div>
   </header>
 
@@ -56,34 +70,23 @@
     <section class="hero">
       <div class="hero-split"></div>
       <div class="hero-inner">
-
         <div class="hero-copy">
           <span class="hero-badge">Libro del mes</span>
           <h1>El arte de<br><em>perderse</em><br>en las páginas</h1>
           <p class="hero-desc">Descubre los títulos que están cambiando conversaciones este año. Desde narrativas íntimas hasta aventuras épicas — tu próxima historia favorita está aquí.</p>
           <div class="hero-btns">
-            <a href="#" class="btn-primary">
+            <a href="#productos" class="btn-primary">
               Explorar ahora
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
-            <a href="#" class="btn-outline">Ver catálogo</a>
+            <a href="#categorias" class="btn-outline">Ver catálogo</a>
           </div>
           <div class="hero-stats">
-            <div class="stat">
-              <div class="stat-value">+12.000</div>
-              <div class="stat-label">Títulos</div>
-            </div>
-            <div class="stat">
-              <div class="stat-value">98%</div>
-              <div class="stat-label">Clientes satisfechos</div>
-            </div>
-            <div class="stat">
-              <div class="stat-value">24h</div>
-              <div class="stat-label">Envío express</div>
-            </div>
+            <div class="stat"><div class="stat-value">+12.000</div><div class="stat-label">Títulos</div></div>
+            <div class="stat"><div class="stat-value">98%</div><div class="stat-label">Clientes satisfechos</div></div>
+            <div class="stat"><div class="stat-value">24h</div><div class="stat-label">Envío express</div></div>
           </div>
         </div>
-
         <div class="hero-visual">
           <div class="book-visual-wrap">
             <div class="book-main">
@@ -92,248 +95,57 @@
               <div class="book-main-info">
                 <div class="book-main-title">Your Heart is the Sea</div>
                 <div class="book-main-author">Mayra Cecilia Ortega</div>
-                <div class="book-stars-hero">
-                  <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                  <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                  <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                  <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                  <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <div class="stars-row">
+                  <svg class="star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg class="star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg class="star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg class="star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg class="star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                   <span class="star-count">4.9</span>
                 </div>
               </div>
             </div>
-            <div class="price-badge">
-              <span class="price-small">SOLO</span>
-              <span class="price-big">$18</span>
-            </div>
+            <div class="price-badge"><span class="price-small">SOLO</span><span class="price-big">$18</span></div>
             <div class="book-secondary">
-              <img src="https://images.unsplash.com/photo-1529521818954-c76995518833?w=200&h=280&fit=crop&auto=format" alt="The First New Universe" />
+              <img src="https://images.unsplash.com/photo-1529521818954-c76995518833?w=200&h=280&fit=crop&auto=format" alt="Libro" />
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
     <!-- PRODUCTOS DESTACADOS -->
-    <section class="section">
+    <section class="section" id="productos">
       <div class="section-header">
         <div>
           <p class="section-eyebrow">Selección editorial</p>
           <h2 class="section-title">Productos Destacados</h2>
         </div>
         <div class="filter-tabs">
-          <button class="filter-tab active" onclick="setFilter(this)">Todos</button>
-          <button class="filter-tab" onclick="setFilter(this)">Más vendidos</button>
-          <button class="filter-tab" onclick="setFilter(this)">Novedades</button>
-          <button class="filter-tab" onclick="setFilter(this)">Ofertas</button>
+          <button class="filter-tab active" data-filter="todos">Todos</button>
+          <button class="filter-tab" data-filter="masvendido">Más vendidos</button>
+          <button class="filter-tab" data-filter="nuevo">Novedades</button>
+          <button class="filter-tab" data-filter="oferta">Ofertas</button>
         </div>
       </div>
-
-      <div class="books-grid">
-
-        <!-- Libro 1 -->
-        <div class="book-card">
-          <div class="book-img-wrap">
-            <img src="https://images.unsplash.com/photo-1762232978806-29b5d8986bb9?w=300&h=420&fit=crop&auto=format" alt="The Seven Husbands of Evelyn Hugo" />
-            <span class="book-badge" style="background:#c8773a;">Más vendido</span>
-            <button class="wish-btn" onclick="toggleWish(this)" title="Favorito">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-            </button>
-            <div class="quick-view">
-              <button class="quick-view-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                Vista rápida
-              </button>
-            </div>
-          </div>
-          <p class="book-title">The Seven Husbands of Evelyn Hugo</p>
-          <p class="book-author">Taylor Jenkins Reid</p>
-          <div class="book-stars-row">
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span class="review-count">(3.841)</span>
-          </div>
-          <div class="book-footer">
-            <div><span class="book-price">$16.99</span><span class="book-price-orig">$24.99</span></div>
-            <button class="add-btn" title="Agregar al carrito">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- Libro 2 -->
-        <div class="book-card">
-          <div class="book-img-wrap">
-            <img src="https://images.unsplash.com/photo-1759766199518-dbb5c6467707?w=300&h=420&fit=crop&auto=format" alt="Fourth Wing" />
-            <span class="book-badge" style="background:#2d7a4f;">Nuevo</span>
-            <button class="wish-btn" onclick="toggleWish(this)" title="Favorito">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-            </button>
-            <div class="quick-view"><button class="quick-view-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> Vista rápida</button></div>
-          </div>
-          <p class="book-title">Fourth Wing</p>
-          <p class="book-author">Rebecca Yarros</p>
-          <div class="book-stars-row">
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span class="review-count">(2.190)</span>
-          </div>
-          <div class="book-footer">
-            <span class="book-price">$19.99</span>
-            <button class="add-btn" title="Agregar al carrito"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></button>
-          </div>
-        </div>
-
-        <!-- Libro 3 -->
-        <div class="book-card">
-          <div class="book-img-wrap">
-            <img src="https://images.unsplash.com/photo-1518210777420-a2f84c71fffc?w=300&h=420&fit=crop&auto=format" alt="Your Soul is a River" />
-            <button class="wish-btn" onclick="toggleWish(this)" title="Favorito">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-            </button>
-            <div class="quick-view"><button class="quick-view-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> Vista rápida</button></div>
-          </div>
-          <p class="book-title">Your Soul is a River</p>
-          <p class="book-author">Nikita Gill</p>
-          <div class="book-stars-row">
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span class="review-count">(2.034)</span>
-          </div>
-          <div class="book-footer">
-            <div><span class="book-price">$12.99</span><span class="book-price-orig">$18.00</span></div>
-            <button class="add-btn" title="Agregar al carrito"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></button>
-          </div>
-        </div>
-
-        <!-- Libro 4 -->
-        <div class="book-card">
-          <div class="book-img-wrap">
-            <img src="https://images.unsplash.com/photo-1529521818954-c76995518833?w=300&h=420&fit=crop&auto=format" alt="The First New Universe" />
-            <span class="book-badge" style="background:#c8773a;">Oferta</span>
-            <button class="wish-btn" onclick="toggleWish(this)" title="Favorito">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-            </button>
-            <div class="quick-view"><button class="quick-view-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> Vista rápida</button></div>
-          </div>
-          <p class="book-title">The First New Universe</p>
-          <p class="book-author">Marcus O'Brien</p>
-          <div class="book-stars-row">
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star star-empty" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span class="review-count">(876)</span>
-          </div>
-          <div class="book-footer">
-            <span class="book-price">$13.50</span>
-            <button class="add-btn" title="Agregar al carrito"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></button>
-          </div>
-        </div>
-
-        <!-- Libro 5 -->
-        <div class="book-card">
-          <div class="book-img-wrap">
-            <img src="https://images.unsplash.com/photo-1555252586-d77e8c828e41?w=300&h=420&fit=crop&auto=format" alt="Your Heart is the Sea" />
-            <button class="wish-btn" onclick="toggleWish(this)" title="Favorito">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-            </button>
-            <div class="quick-view"><button class="quick-view-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> Vista rápida</button></div>
-          </div>
-          <p class="book-title">Your Heart is the Sea</p>
-          <p class="book-author">Mayra Cecilia Ortega</p>
-          <div class="book-stars-row">
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star star-empty" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span class="review-count">(1.205)</span>
-          </div>
-          <div class="book-footer">
-            <div><span class="book-price">$14.99</span><span class="book-price-orig">$21.00</span></div>
-            <button class="add-btn" title="Agregar al carrito"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></button>
-          </div>
-        </div>
-
-        <!-- Libro 6 -->
-        <div class="book-card">
-          <div class="book-img-wrap">
-            <img src="https://images.unsplash.com/photo-1711185898226-beea7eee0611?w=300&h=420&fit=crop&auto=format" alt="Memorias del Futuro" />
-            <span class="book-badge" style="background:#5b4fa0;">Editor's Pick</span>
-            <button class="wish-btn" onclick="toggleWish(this)" title="Favorito">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-            </button>
-            <div class="quick-view"><button class="quick-view-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> Vista rápida</button></div>
-          </div>
-          <p class="book-title">Memorias del Futuro</p>
-          <p class="book-author">Clara Montoya</p>
-          <div class="book-stars-row">
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="star star-empty" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span class="review-count">(643)</span>
-          </div>
-          <div class="book-footer">
-            <span class="book-price">$17.99</span>
-            <button class="add-btn" title="Agregar al carrito"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></button>
-          </div>
-        </div>
-
-      </div>
+      <div class="books-grid" id="books-grid"></div>
+      <p class="no-results" id="no-results" style="display:none;">No se encontraron libros para tu búsqueda.</p>
     </section>
 
     <!-- CATEGORIAS -->
-    <section class="categories-section">
+    <section class="categories-section" id="categorias">
       <div class="categories-inner">
         <div class="categories-header">
           <p class="section-eyebrow">Explora por género</p>
           <h2 class="section-title">Categorías</h2>
         </div>
         <div class="categories-grid">
-          <a href="#" class="cat-card">
-            <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400&h=300&fit=crop&auto=format" alt="Ficción" />
-            <div class="cat-overlay" style="background:linear-gradient(to top,#3b2e25ee 30%,#3b2e2555 70%,transparent)"></div>
-            <div class="cat-info"><p class="cat-name">Ficción</p><p class="cat-count">4.820 títulos</p></div>
-          </a>
-          <a href="#" class="cat-card">
-            <img src="https://images.unsplash.com/photo-1573592371950-348a8f1d9f38?w=400&h=300&fit=crop&auto=format" alt="No Ficción" />
-            <div class="cat-overlay" style="background:linear-gradient(to top,#1c3a2eee 30%,#1c3a2e55 70%,transparent)"></div>
-            <div class="cat-info"><p class="cat-name">No Ficción</p><p class="cat-count">3.100 títulos</p></div>
-          </a>
-          <a href="#" class="cat-card">
-            <img src="https://images.unsplash.com/photo-1536965764833-5971e0abed7c?w=400&h=300&fit=crop&auto=format" alt="Ciencia" />
-            <div class="cat-overlay" style="background:linear-gradient(to top,#1c2840ee 30%,#1c284055 70%,transparent)"></div>
-            <div class="cat-info"><p class="cat-name">Ciencia</p><p class="cat-count">1.540 títulos</p></div>
-          </a>
-          <a href="#" class="cat-card">
-            <img src="https://images.unsplash.com/photo-1533327325824-76bc4e62d560?w=400&h=300&fit=crop&auto=format" alt="Historia" />
-            <div class="cat-overlay" style="background:linear-gradient(to top,#3a2010ee 30%,#3a201055 70%,transparent)"></div>
-            <div class="cat-info"><p class="cat-name">Historia</p><p class="cat-count">2.030 títulos</p></div>
-          </a>
-          <a href="#" class="cat-card">
-            <img src="https://images.unsplash.com/photo-1585779034823-7e9ac8faec70?w=400&h=300&fit=crop&auto=format" alt="Infantil" />
-            <div class="cat-overlay" style="background:linear-gradient(to top,#2a3820ee 30%,#2a382055 70%,transparent)"></div>
-            <div class="cat-info"><p class="cat-name">Infantil</p><p class="cat-count">980 títulos</p></div>
-          </a>
-          <a href="#" class="cat-card">
-            <img src="https://images.unsplash.com/photo-1632900182533-c8ee9ba229f4?w=400&h=300&fit=crop&auto=format" alt="Poesía" />
-            <div class="cat-overlay" style="background:linear-gradient(to top,#3a1c38ee 30%,#3a1c3855 70%,transparent)"></div>
-            <div class="cat-info"><p class="cat-name">Poesía</p><p class="cat-count">560 títulos</p></div>
-          </a>
+          <a href="#" class="cat-card"><img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400&h=300&fit=crop&auto=format" alt="Ficción" /><div class="cat-overlay" style="background:linear-gradient(to top,#3b2e25ee 30%,#3b2e2555 70%,transparent)"></div><div class="cat-info"><p class="cat-name">Ficción</p><p class="cat-count">4.820 títulos</p></div></a>
+          <a href="#" class="cat-card"><img src="https://images.unsplash.com/photo-1573592371950-348a8f1d9f38?w=400&h=300&fit=crop&auto=format" alt="No Ficción" /><div class="cat-overlay" style="background:linear-gradient(to top,#1c3a2eee 30%,#1c3a2e55 70%,transparent)"></div><div class="cat-info"><p class="cat-name">No Ficción</p><p class="cat-count">3.100 títulos</p></div></a>
+          <a href="#" class="cat-card"><img src="https://images.unsplash.com/photo-1536965764833-5971e0abed7c?w=400&h=300&fit=crop&auto=format" alt="Ciencia" /><div class="cat-overlay" style="background:linear-gradient(to top,#1c2840ee 30%,#1c284055 70%,transparent)"></div><div class="cat-info"><p class="cat-name">Ciencia</p><p class="cat-count">1.540 títulos</p></div></a>
+          <a href="#" class="cat-card"><img src="https://images.unsplash.com/photo-1533327325824-76bc4e62d560?w=400&h=300&fit=crop&auto=format" alt="Historia" /><div class="cat-overlay" style="background:linear-gradient(to top,#3a2010ee 30%,#3a201055 70%,transparent)"></div><div class="cat-info"><p class="cat-name">Historia</p><p class="cat-count">2.030 títulos</p></div></a>
+          <a href="#" class="cat-card"><img src="https://images.unsplash.com/photo-1585779034823-7e9ac8faec70?w=400&h=300&fit=crop&auto=format" alt="Infantil" /><div class="cat-overlay" style="background:linear-gradient(to top,#2a3820ee 30%,#2a382055 70%,transparent)"></div><div class="cat-info"><p class="cat-name">Infantil</p><p class="cat-count">980 títulos</p></div></a>
+          <a href="#" class="cat-card"><img src="https://images.unsplash.com/photo-1632900182533-c8ee9ba229f4?w=400&h=300&fit=crop&auto=format" alt="Poesía" /><div class="cat-overlay" style="background:linear-gradient(to top,#3a1c38ee 30%,#3a1c3855 70%,transparent)"></div><div class="cat-info"><p class="cat-name">Poesía</p><p class="cat-count">560 títulos</p></div></a>
         </div>
       </div>
     </section>
@@ -341,22 +153,10 @@
     <!-- TIRA DE VALORES -->
     <div class="value-strip">
       <div class="value-inner">
-        <div class="value-item">
-          <div class="value-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="13" x="6" y="4" rx="2"/><path d="m22 7-7.1 3.78c-.57.3-1.23.3-1.8 0L6 7"/><path d="M2 12h4"/><path d="M2 8h4"/><path d="M2 16h4"/></svg></div>
-          <div><p class="value-title">Envío gratis</p><p class="value-desc">En pedidos +$29.99</p></div>
-        </div>
-        <div class="value-item">
-          <div class="value-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></div>
-          <div><p class="value-title">30 días devolución</p><p class="value-desc">Sin preguntas</p></div>
-        </div>
-        <div class="value-item">
-          <div class="value-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
-          <div><p class="value-title">Lector premium</p><p class="value-desc">Beneficios exclusivos</p></div>
-        </div>
-        <div class="value-item">
-          <div class="value-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
-          <div><p class="value-title">Soporte 24/7</p><p class="value-desc">Estamos para ti</p></div>
-        </div>
+        <div class="value-item"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="13" x="6" y="4" rx="2"/><path d="m22 7-7.1 3.78c-.57.3-1.23.3-1.8 0L6 7"/><path d="M2 12h4"/><path d="M2 8h4"/><path d="M2 16h4"/></svg></div><div><p class="value-title">Envío gratis</p><p class="value-desc">En pedidos +$29.99</p></div></div>
+        <div class="value-item"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></div><div><p class="value-title">30 días devolución</p><p class="value-desc">Sin preguntas</p></div></div>
+        <div class="value-item"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><div><p class="value-title">Lector premium</p><p class="value-desc">Beneficios exclusivos</p></div></div>
+        <div class="value-item"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div><div><p class="value-title">Soporte 24/7</p><p class="value-desc">Estamos para ti</p></div></div>
       </div>
     </div>
 
@@ -368,10 +168,7 @@
           <h3 class="promo-title">3 libros por el precio de 2</h3>
           <p class="promo-sub">Aplica en toda la sección de ficción contemporánea</p>
         </div>
-        <a href="#" class="btn-white">
-          Aprovechar oferta
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
+        <a href="#productos" class="btn-white">Aprovechar oferta <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
       </div>
     </section>
 
@@ -383,8 +180,8 @@
         <p class="nl-eyebrow">Newsletter</p>
         <h2 class="nl-title">Tu próxima historia<br><em>empieza aquí</em></h2>
         <p class="nl-desc">Suscríbete y recibe recomendaciones personalizadas, alertas de ofertas y novedades editoriales directamente en tu correo.</p>
-        <form class="nl-form" onsubmit="submitNewsletter(event)">
-          <input class="nl-input" type="email" placeholder="tu@correo.com" required />
+        <form class="nl-form" id="nl-form">
+          <input class="nl-input" id="nl-email" type="email" placeholder="tu@correo.com" required />
           <button type="submit" class="btn-primary">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
             Suscribirme
@@ -401,56 +198,64 @@
     <div class="footer-inner">
       <div class="footer-grid">
         <div>
-          <div class="footer-brand-logo">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-            Página <span>Uno</span>
-          </div>
+          <div class="footer-brand-logo"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Página <span>Uno</span></div>
           <p class="footer-desc">Tu librería online de confianza. Libros para cada mente y cada momento.</p>
           <div class="footer-socials">
-            <a href="#" class="social-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
-            <a href="#" class="social-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg></a>
-            <a href="#" class="social-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="#" class="social-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
+            <a href="#" class="social-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg></a>
+            <a href="#" class="social-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
           </div>
         </div>
-        <div class="footer-col">
-          <p class="footer-col-title">Tienda</p>
-          <a href="#">Novedades</a><a href="#">Más vendidos</a><a href="#">Ofertas</a><a href="#">Próximos lanzamientos</a><a href="#">Ebooks</a>
-        </div>
-        <div class="footer-col">
-          <p class="footer-col-title">Soporte</p>
-          <a href="#">Centro de ayuda</a><a href="#">Mi cuenta</a><a href="#">Seguimiento de pedido</a><a href="#">Devoluciones</a><a href="#">Contacto</a>
-        </div>
-        <div class="footer-col">
-          <p class="footer-col-title">Empresa</p>
-          <a href="#">Quiénes somos</a><a href="#">Blog editorial</a><a href="#">Trabaja con nosotros</a><a href="#">Afiliados</a><a href="#">Privacidad</a>
-        </div>
+        <div class="footer-col"><p class="footer-col-title">Tienda</p><a href="#">Novedades</a><a href="#">Más vendidos</a><a href="#">Ofertas</a><a href="#">Próximos lanzamientos</a><a href="#">Ebooks</a></div>
+        <div class="footer-col"><p class="footer-col-title">Soporte</p><a href="#">Centro de ayuda</a><a href="#">Mi cuenta</a><a href="#">Seguimiento de pedido</a><a href="#">Devoluciones</a><a href="#">Contacto</a></div>
+        <div class="footer-col"><p class="footer-col-title">Empresa</p><a href="#">Quiénes somos</a><a href="#">Blog editorial</a><a href="#">Trabaja con nosotros</a><a href="#">Afiliados</a><a href="#">Privacidad</a></div>
       </div>
       <div class="footer-bottom">
         <p class="footer-copy">© 2026 Página Uno. Todos los derechos reservados.</p>
-        <div class="payment-methods">
-          <span class="payment-pill">Visa</span>
-          <span class="payment-pill">Mastercard</span>
-          <span class="payment-pill">PayPal</span>
-          <span class="payment-pill">Amex</span>
-        </div>
+        <div class="payment-methods"><span class="payment-pill">Visa</span><span class="payment-pill">Mastercard</span><span class="payment-pill">PayPal</span><span class="payment-pill">Amex</span></div>
       </div>
     </div>
   </footer>
 
-  <script>
-    function setFilter(btn) {
-      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-      btn.classList.add('active');
-    }
-    function toggleWish(btn) {
-      btn.classList.toggle('active');
-    }
-    function submitNewsletter(e) {
-      e.preventDefault();
-      const form = e.target;
-      form.innerHTML = '<p style="color:#6ee89f;font-size:.95rem;font-weight:500;text-align:center;">✓ ¡Gracias! Revisa tu bandeja de entrada.</p>';
-    }
-  </script>
+  <!-- CARRITO DRAWER -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-header">
+      <div class="cart-header-left">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+        <h3>Tu carrito</h3>
+        <span class="cart-count-badge" id="cart-count-badge">0</span>
+      </div>
+      <button class="cart-close-btn" id="cart-close-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-footer" id="cart-footer" style="display:none;">
+      <div class="cart-total-row">
+        <span class="cart-total-label">Subtotal</span>
+        <span class="cart-total-value" id="cart-total">$0.00</span>
+      </div>
+      <div class="cart-shipping-note" id="cart-shipping-note"></div>
+      <button class="btn-checkout" id="btn-checkout">
+        Finalizar compra
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
 
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- MODAL VISTA RAPIDA -->
+  <div class="modal-overlay" id="modal-overlay"></div>
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modal-close">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+
+  <script src="/api/app.js"></script>
 </body>
 </html>

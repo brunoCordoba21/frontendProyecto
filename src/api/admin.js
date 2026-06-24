@@ -1,458 +1,226 @@
-// =====================================
-// CONFIGURACIÓN DE ENDPOINTS
-// =====================================
-// Tus compañeros mañana pueden cambiar estas URLs si el backend usa otras rutas.
-const API_BOOKS = "http://localhost:3000/books";
-const API_USERS = "http://localhost:3000/users";
+const libros = [
+  { id: 1, title: "El Principito", author: "Antoine de Saint-Exupéry", price: 4500, publishedYear: 1943, categoryId: 1 }
+];
 
-// =====================================
-// REFERENCIAS DEL DOM - LIBROS
-// =====================================
-const libroIdInput = document.getElementById("libroId");
-const titleInput = document.getElementById("title");
-const authorInput = document.getElementById("author");
-const priceInput = document.getElementById("price");
-const publishedYearInput = document.getElementById("publishedYear");
-const categoryIdInput = document.getElementById("categoryId");
+const usuarios = [
+  { id: 1, name: "Administrador Principal", email: "admin@libreria.com", password: "1234" }
+];
 
-const btnCrearLibro = document.getElementById("btn-crear-libro");
-const btnModificarLibro = document.getElementById("btn-modificar-libro");
-const btnEliminarLibro = document.getElementById("btn-eliminar-libro");
+// ===== LIBROS =====
+const libroId = document.getElementById("libroId");
+const title = document.getElementById("title");
+const author = document.getElementById("author");
+const price = document.getElementById("price");
+const publishedYear = document.getElementById("publishedYear");
+const categoryId = document.getElementById("categoryId");
+const tablaLibros = document.getElementById("tabla-libros-body");
 
-const tablaLibrosBody = document.getElementById("tabla-libros-body");
+document.getElementById("btn-crear-libro").addEventListener("click", crearLibro);
+document.getElementById("btn-modificar-libro").addEventListener("click", modificarLibro);
+document.getElementById("btn-eliminar-libro").addEventListener("click", eliminarLibro);
 
-// =====================================
-// REFERENCIAS DEL DOM - USUARIOS
-// =====================================
-const userIdInput = document.getElementById("userId");
-const nameInput = document.getElementById("name");
-const emailInput = document.getElementById("email");
-const passwordInput = document.getElementById("password");
+// ===== USUARIOS =====
+const userId = document.getElementById("userId");
+const nameUser = document.getElementById("name");
+const email = document.getElementById("email");
+const password = document.getElementById("password");
+const tablaUsuarios = document.getElementById("tabla-usuarios-body");
 
-const btnCrearUser = document.getElementById("btn-crear-user");
-const btnModificarUser = document.getElementById("btn-modificar-user");
-const btnEliminarUser = document.getElementById("btn-eliminar-user");
+document.getElementById("btn-crear-user").addEventListener("click", crearUsuario);
+document.getElementById("btn-modificar-user").addEventListener("click", modificarUsuario);
+document.getElementById("btn-eliminar-user").addEventListener("click", eliminarUsuario);
 
-const tablaUsuariosBody = document.getElementById("tabla-usuarios-body");
+// ===== TOAST =====
+const toast = document.createElement("div");
+toast.style.cssText = `
+  position:fixed; top:20px; right:20px; background:#1f7a4f; color:#fff;
+  padding:12px 18px; border-radius:10px; font-weight:600; z-index:9999;
+  opacity:0; transition:.3s; box-shadow:0 10px 25px rgba(0,0,0,.2)
+`;
+document.body.appendChild(toast);
 
-// =====================================
-// FUNCIONES AUXILIARES - LIBROS
-// =====================================
-function obtenerDatosLibro() {
-  return {
-    id: libroIdInput.value.trim() ? Number(libroIdInput.value) : null,
-    title: titleInput.value.trim(),
-    author: authorInput.value.trim(),
-    price: priceInput.value.trim() ? Number(priceInput.value) : null,
-    publishedYear: publishedYearInput.value.trim()
-      ? Number(publishedYearInput.value)
-      : null,
-    categoryId: categoryIdInput.value.trim()
-      ? Number(categoryIdInput.value)
-      : null
-  };
+function mostrarToast(texto) {
+  toast.textContent = texto;
+  toast.style.opacity = "1";
+  setTimeout(() => toast.style.opacity = "0", 2200);
 }
 
-function validarLibro(libro, requiereId = false) {
-  if (requiereId && (!libro.id || libro.id <= 0)) {
-    alert("Debés ingresar un ID válido del libro.");
-    return false;
-  }
+// ===== MODAL =====
+const modal = document.createElement("div");
+modal.style.cssText = `
+  position:fixed; inset:0; background:rgba(0,0,0,.45); display:none;
+  align-items:center; justify-content:center; z-index:9998;
+`;
+modal.innerHTML = `
+  <div style="background:#fff; padding:25px; border-radius:14px; width:320px; text-align:center;">
+    <h3 style="margin-bottom:10px;">Confirmar</h3>
+    <p id="modal-texto">¿Seguro?</p>
+    <div style="margin-top:20px; display:flex; justify-content:center; gap:10px;">
+      <button id="cancelar-modal" style="padding:10px 16px; border:none; border-radius:8px; background:#ddd; cursor:pointer;">Cancelar</button>
+      <button id="confirmar-modal" style="padding:10px 16px; border:none; border-radius:8px; background:#c0392b; color:#fff; cursor:pointer;">Eliminar</button>
+    </div>
+  </div>
+`;
+document.body.appendChild(modal);
 
-  if (!libro.title) {
-    alert("El título del libro es obligatorio.");
-    return false;
-  }
+const modalTexto = modal.querySelector("#modal-texto");
+const btnCancelar = modal.querySelector("#cancelar-modal");
+const btnConfirmar = modal.querySelector("#confirmar-modal");
+let accion = null;
 
-  if (!libro.author) {
-    alert("El autor del libro es obligatorio.");
-    return false;
-  }
+function abrirModal(texto, callback) {
+  modalTexto.textContent = texto;
+  accion = callback;
+  modal.style.display = "flex";
+}
+btnCancelar.onclick = () => modal.style.display = "none";
+btnConfirmar.onclick = () => {
+  if (accion) accion();
+  modal.style.display = "none";
+};
 
-  if (libro.price === null || isNaN(libro.price) || libro.price <= 0) {
-    alert("El precio debe ser un número mayor a 0.");
-    return false;
-  }
-  
-  if (
-    libro.publishedYear === null ||
-    isNaN(libro.publishedYear) ||
-    libro.publishedYear <= 0
-  ) {
-    alert("El año de publicación debe ser un número válido.");
-    return false;
-  }
-
-  if (
-    libro.categoryId === null ||
-    isNaN(libro.categoryId) ||
-    libro.categoryId <= 0
-  ) {
-    alert("La categoría debe ser un ID válido.");
-    return false;
-  }
-
-  return true;
+// ===== RENDER =====
+function renderLibros() {
+  tablaLibros.innerHTML = libros.map(l => `
+    <tr onclick="cargarLibro(${l.id})" style="cursor:pointer">
+      <td>${l.id}</td>
+      <td>${l.title}</td>
+      <td>${l.author}</td>
+      <td><strong>$${Number(l.price).toLocaleString("es-AR")}</strong></td>
+      <td>${l.publishedYear}</td>
+      <td><span class="badge-cat">${l.categoryId}</span></td>
+    </tr>
+  `).join("");
 }
 
-function limpiarFormularioLibro() {
-  libroIdInput.value = "";
-  titleInput.value = "";
-  authorInput.value = "";
-  priceInput.value = "";
-  publishedYearInput.value = "";
-  categoryIdInput.value = "";
+function renderUsuarios() {
+  tablaUsuarios.innerHTML = usuarios.map(u => `
+    <tr onclick="cargarUsuario(${u.id})" style="cursor:pointer">
+      <td>${u.id}</td>
+      <td>${u.name}</td>
+      <td>${u.email}</td>
+    </tr>
+  `).join("");
 }
 
-// =====================================
-// FUNCIONES AUXILIARES - USUARIOS
-// =====================================
-function obtenerDatosUsuario() {
-  return {
-    id: userIdInput.value.trim() ? Number(userIdInput.value) : null,
-    name: nameInput.value.trim(),
-    email: emailInput.value.trim(),
-    password: passwordInput.value.trim()
-  };
+// ===== LIBROS FUNCIONES =====
+function cargarLibro(id) {
+  const l = libros.find(libro => libro.id === id);
+  libroId.value = l.id;
+  title.value = l.title;
+  author.value = l.author;
+  price.value = l.price;
+  publishedYear.value = l.publishedYear;
+  categoryId.value = l.categoryId;
 }
 
-function validarUsuario(usuario, requiereId = false) {
-  if (requiereId && (!usuario.id || usuario.id <= 0)) {
-    alert("Debés ingresar un ID válido del usuario.");
-    return false;
+function crearLibro() {
+  if (!title.value || !author.value || !price.value || !publishedYear.value || !categoryId.value) {
+    return mostrarToast("Completá todos los campos del libro");
   }
 
-  if (!usuario.name) {
-    alert("El nombre del usuario es obligatorio.");
-    return false;
-  }
+  libros.push({
+    id: libros.length ? libros[libros.length - 1].id + 1 : 1,
+    title: title.value,
+    author: author.value,
+    price: price.value,
+    publishedYear: publishedYear.value,
+    categoryId: categoryId.value
+  });
 
-  if (!usuario.email) {
-    alert("El email es obligatorio.");
-    return false;
-  }
-
-  if (!usuario.email.includes("@")) {
-    alert("Ingresá un email válido.");
-    return false;
-  }
-
-  if (!usuario.password || usuario.password.length < 4) {
-    alert("La contraseña debe tener al menos 4 caracteres.");
-    return false;
-  }
-
-  return true;
+  renderLibros();
+  limpiarLibro();
+  mostrarToast("Libro guardado correctamente");
 }
 
-function limpiarFormularioUsuario() {
-  userIdInput.value = "";
-  nameInput.value = "";
-  emailInput.value = "";
-  passwordInput.value = "";
+function modificarLibro() {
+  const l = libros.find(libro => libro.id == libroId.value);
+  if (!l) return mostrarToast("Ingresá un ID válido de libro");
+
+  l.title = title.value;
+  l.author = author.value;
+  l.price = price.value;
+  l.publishedYear = publishedYear.value;
+  l.categoryId = categoryId.value;
+
+  renderLibros();
+  limpiarLibro();
+  mostrarToast("Libro modificado correctamente");
 }
 
-// =====================================
-// RENDER DE TABLAS
-// =====================================
-function renderizarLibros(libros) {
-  tablaLibrosBody.innerHTML = "";
+function eliminarLibro() {
+  const index = libros.findIndex(libro => libro.id == libroId.value);
+  if (index === -1) return mostrarToast("Ingresá un ID válido de libro");
 
-  if (!Array.isArray(libros) || libros.length === 0) {
-    tablaLibrosBody.innerHTML = `
-      <tr>
-        <td colspan="6">No hay libros registrados.</td>
-      </tr>
-    `;
-    return;
-  }
-
-  libros.forEach((libro) => {
-    const fila = document.createElement("tr");
-
-    fila.innerHTML = `
-      <td>${libro.id ?? "-"}</td>
-      <td>${libro.title ?? "-"}</td>
-      <td>${libro.author ?? "-"}</td>
-      <td><strong>$${Number(libro.price ?? 0).toLocaleString("es-AR")}</strong></td>
-      <td>${libro.publishedYear ?? "-"}</td>
-      <td><span class="badge-cat">${libro.categoryId ?? "-"}</span></td>
-    `;
-
-    tablaLibrosBody.appendChild(fila);
+  abrirModal(`¿Eliminar el libro "${libros[index].title}"?`, () => {
+    libros.splice(index, 1);
+    renderLibros();
+    limpiarLibro();
+    mostrarToast("Libro eliminado correctamente");
   });
 }
 
-function renderizarUsuarios(usuarios) {
-  tablaUsuariosBody.innerHTML = "";
+function limpiarLibro() {
+  libroId.value = title.value = author.value = price.value = publishedYear.value = categoryId.value = "";
+}
 
-  if (!Array.isArray(usuarios) || usuarios.length === 0) {
-    tablaUsuariosBody.innerHTML = `
-      <tr>
-        <td colspan="3">No hay usuarios registrados.</td>
-      </tr>
-    `;
-    return;
+// ===== USUARIOS FUNCIONES =====
+function cargarUsuario(id) {
+  const u = usuarios.find(user => user.id === id);
+  userId.value = u.id;
+  nameUser.value = u.name;
+  email.value = u.email;
+  password.value = u.password;
+}
+
+function crearUsuario() {
+  if (!nameUser.value || !email.value || !password.value) {
+    return mostrarToast("Completá todos los campos del usuario");
   }
 
-  usuarios.forEach((usuario) => {
-    const fila = document.createElement("tr");
+  usuarios.push({
+    id: usuarios.length ? usuarios[usuarios.length - 1].id + 1 : 1,
+    name: nameUser.value,
+    email: email.value,
+    password: password.value
+  });
 
-    fila.innerHTML = `
-      <td>${usuario.id ?? "-"}</td>
-      <td>${usuario.name ?? "-"}</td>
-      <td>${usuario.email ?? "-"}</td>
-    `;
+  renderUsuarios();
+  limpiarUsuario();
+  mostrarToast("Usuario registrado correctamente");
+}
 
-    tablaUsuariosBody.appendChild(fila);
+function modificarUsuario() {
+  const u = usuarios.find(user => user.id == userId.value);
+  if (!u) return mostrarToast("Ingresá un ID válido de usuario");
+
+  u.name = nameUser.value;
+  u.email = email.value;
+  u.password = password.value;
+
+  renderUsuarios();
+  limpiarUsuario();
+  mostrarToast("Usuario modificado correctamente");
+}
+
+function eliminarUsuario() {
+  const index = usuarios.findIndex(user => user.id == userId.value);
+  if (index === -1) return mostrarToast("Ingresá un ID válido de usuario");
+
+  abrirModal(`¿Eliminar al usuario "${usuarios[index].name}"?`, () => {
+    usuarios.splice(index, 1);
+    renderUsuarios();
+    limpiarUsuario();
+    mostrarToast("Usuario eliminado correctamente");
   });
 }
 
-// =====================================
-// CRUD LIBROS
-// =====================================
-async function cargarLibros() {
-  try {
-    const response = await fetch(API_BOOKS);
-
-    if (!response.ok) {
-      throw new Error("No se pudieron cargar los libros.");
-    }
-
-    const libros = await response.json();
-    renderizarLibros(libros);
-  } catch (error) {
-    console.error("Error al cargar libros:", error);
-    alert("Error al cargar libros.");
-  }
+function limpiarUsuario() {
+  userId.value = nameUser.value = email.value = password.value = "";
 }
 
-async function crearLibro() {
-  const libro = obtenerDatosLibro();
+window.cargarLibro = cargarLibro;
+window.cargarUsuario = cargarUsuario;
 
-  if (!validarLibro(libro, false)) return;
-
-  try {
-    const response = await fetch(API_BOOKS, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        title: libro.title,
-        author: libro.author,
-        price: libro.price,
-        publishedYear: libro.publishedYear,
-        categoryId: libro.categoryId
-      })
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => null);
-      throw new Error(errorData?.message || "No se pudo crear el libro.");
-    }
-
-    alert("Libro creado correctamente.");
-    limpiarFormularioLibro();
-    await cargarLibros();
-  } catch (error) {
-    console.error("Error al crear libro:", error);
-    alert(error.message || "Error al crear el libro.");
-  }
-}
-
-async function modificarLibro() {
-  const libro = obtenerDatosLibro();
-
-  if (!validarLibro(libro, true)) return;
-
-  try {
-    const response = await fetch(`${API_BOOKS}/${libro.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        title: libro.title,
-        author: libro.author,
-        price: libro.price,
-        publishedYear: libro.publishedYear,
-        categoryId: libro.categoryId
-      })
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => null);
-      throw new Error(errorData?.message || "No se pudo modificar el libro.");
-    }
-
-    alert("Libro modificado correctamente.");
-    limpiarFormularioLibro();
-    await cargarLibros();
-  } catch (error) {
-    console.error("Error al modificar libro:", error);
-    alert(error.message || "Error al modificar el libro.");
-  }
-}
-
-async function eliminarLibro() {
-  const id = Number(libroIdInput.value);
-
-  if (!id || id <= 0) {
-    alert("Debés ingresar un ID válido del libro a eliminar.");
-    return;
-  }
-
-  const confirmar = confirm(`¿Seguro que querés eliminar el libro con ID ${id}?`);
-  if (!confirmar) return;
-
-  try {
-    const response = await fetch(`${API_BOOKS}/${id}`, {
-      method: "DELETE"
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => null);
-      throw new Error(errorData?.message || "No se pudo eliminar el libro.");
-    }
-
-    alert("Libro eliminado correctamente.");
-    limpiarFormularioLibro();
-    await cargarLibros();
-  } catch (error) {
-    console.error("Error al eliminar libro:", error);
-    alert(error.message || "Error al eliminar el libro.");
-  }
-}
-
-// =====================================
-// CRUD USUARIOS
-// =====================================
-async function cargarUsuarios() {
-  try {
-    const response = await fetch(API_USERS);
-
-    if (!response.ok) {
-      throw new Error("No se pudieron cargar los usuarios.");
-    }
-
-    const usuarios = await response.json();
-    renderizarUsuarios(usuarios);
-  } catch (error) {
-    console.error("Error al cargar usuarios:", error);
-    alert("Error al cargar usuarios.");
-  }
-}
-
-async function crearUsuario() {
-  const usuario = obtenerDatosUsuario();
-
-  if (!validarUsuario(usuario, false)) return;
-
-  try {
-    const response = await fetch(API_USERS, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name: usuario.name,
-        email: usuario.email,
-        password: usuario.password
-      })
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => null);
-      throw new Error(errorData?.message || "No se pudo crear el usuario.");
-    }
-
-    alert("Usuario creado correctamente.");
-    limpiarFormularioUsuario();
-    await cargarUsuarios();
-  } catch (error) {
-    console.error("Error al crear usuario:", error);
-    alert(error.message || "Error al crear el usuario.");
-  }
-}
-
-async function modificarUsuario() {
-  const usuario = obtenerDatosUsuario();
-
-  if (!validarUsuario(usuario, true)) return;
-
-  try {
-    const response = await fetch(`${API_USERS}/${usuario.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name: usuario.name,
-        email: usuario.email,
-        password: usuario.password
-      })
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => null);
-      throw new Error(errorData?.message || "No se pudo modificar el usuario.");
-    }
-
-    alert("Usuario modificado correctamente.");
-    limpiarFormularioUsuario();
-    await cargarUsuarios();
-  } catch (error) {
-    console.error("Error al modificar usuario:", error);
-    alert(error.message || "Error al modificar el usuario.");
-  }
-}
-
-async function eliminarUsuario() {
-  const id = Number(userIdInput.value);
-
-  if (!id || id <= 0) {
-    alert("Debés ingresar un ID válido del usuario a eliminar.");
-    return;
-  }
-
-  const confirmar = confirm(`¿Seguro que querés eliminar el usuario con ID ${id}?`);
-  if (!confirmar) return;
-
-  try {
-    const response = await fetch(`${API_USERS}/${id}`, {
-      method: "DELETE"
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => null);
-      throw new Error(errorData?.message || "No se pudo eliminar el usuario.");
-    }
-
-    alert("Usuario eliminado correctamente.");
-    limpiarFormularioUsuario();
-    await cargarUsuarios();
-  } catch (error) {
-    console.error("Error al eliminar usuario:", error);
-    alert(error.message || "Error al eliminar el usuario.");
-  }
-}
-
-// =====================================
-// EVENTOS
-// =====================================
-btnCrearLibro.addEventListener("click", crearLibro);
-btnModificarLibro.addEventListener("click", modificarLibro);
-btnEliminarLibro.addEventListener("click", eliminarLibro);
-
-btnCrearUser.addEventListener("click", crearUsuario);
-btnModificarUser.addEventListener("click", modificarUsuario);
-btnEliminarUser.addEventListener("click", eliminarUsuario);
-
-// =====================================
-// INICIALIZACIÓN
-// =====================================
-document.addEventListener("DOMContentLoaded", () => {
-  cargarLibros();
-  cargarUsuarios();
-});
+renderLibros();
+renderUsuarios();
